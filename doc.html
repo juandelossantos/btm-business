@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BTM Business — documento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<style>
+  :root{
+    --bg:#070B0E; --panel:#0C1418;
+    --text:#F2F7FA; --muted:#9FB3BD; --muted-2:#6E8894;
+    --brand-2:#19B8C4; --lime:#C9F24C; --warn:#FFB020;
+    --border:rgba(25,184,196,.22);
+  }
+  *{margin:0; padding:0; box-sizing:border-box}
+  body{
+    font-family:'Inter',sans-serif; color:var(--text); background:
+      radial-gradient(1000px 500px at 85% -10%, rgba(25,184,196,.07), transparent 60%),
+      linear-gradient(180deg,#070B0E 0%, #05080B 100%);
+    min-height:100vh;
+  }
+  .top{position:sticky; top:0; z-index:10; backdrop-filter:blur(10px); background:rgba(7,11,14,.82); border-bottom:1px solid rgba(255,255,255,.06)}
+  .top-in{max-width:900px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+  .top a.back{color:var(--muted); font-size:13px; text-decoration:none; letter-spacing:.08em; text-transform:uppercase}
+  .top a.back:hover{color:var(--brand-2)}
+  .top .repo{color:var(--muted-2); font-size:12px; letter-spacing:.06em; text-decoration:none; border:1px solid var(--border); padding:6px 12px; border-radius:999px}
+  .top .repo:hover{color:var(--text); border-color:var(--brand-2)}
+
+  main{max-width:900px; margin:0 auto; padding:48px 24px 96px}
+  .md{line-height:1.72; font-size:15.5px; color:var(--muted)}
+  .md h1,.md h2,.md h3,.md h4{font-family:'Oswald',sans-serif; color:var(--text); line-height:1.15; letter-spacing:.01em; margin:1.6em 0 .55em}
+  .md h1{font-size:clamp(30px,4.6vw,46px); margin-top:.2em}
+  .md h1 span.accent{color:var(--lime)}
+  .md h2{font-size:clamp(24px,3.2vw,32px); border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:.35em}
+  .md h3{font-size:21px; color:var(--brand-2)}
+  .md h4{font-size:17px}
+  .md p{margin:.7em 0}
+  .md strong{color:var(--text)}
+  .md em{color:var(--text)}
+  .md a{color:var(--brand-2); text-decoration:none; border-bottom:1px solid rgba(25,184,196,.4)}
+  .md a:hover{color:var(--lime); border-color:var(--lime)}
+  .md ul,.md ol{margin:.7em 0 .7em 1.4em}
+  .md li{margin:.32em 0}
+  .md li::marker{color:var(--brand-2)}
+  .md blockquote{border-left:3px solid var(--brand-2); background:rgba(25,184,196,.06); border-radius:0 12px 12px 0; padding:10px 18px; margin:1em 0; color:var(--muted)}
+  .md blockquote p{margin:.3em 0}
+  .md code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.86em; background:rgba(25,184,196,.1); border:1px solid rgba(25,184,196,.2); border-radius:6px; padding:.12em .4em; color:var(--lime)}
+  .md pre{background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px 18px; overflow-x:auto; margin:1em 0}
+  .md pre code{background:none; border:none; padding:0; color:var(--muted); font-size:.85em; line-height:1.6}
+  .md hr{border:none; border-top:1px solid rgba(255,255,255,.08); margin:2em 0}
+  .md table{width:100%; border-collapse:collapse; margin:1.1em 0; font-size:13.5px; display:block; overflow-x:auto}
+  .md th{font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:.06em; text-transform:uppercase; font-size:12px; color:var(--lime)}
+  .md th,.md td{border:1px solid rgba(255,255,255,.1); padding:8px 12px; text-align:left; vertical-align:top}
+  .md tbody tr:nth-child(odd){background:rgba(255,255,255,.025)}
+  .md img{max-width:100%; border-radius:12px}
+  .md .tag{display:inline-block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--warn); border:1px solid rgba(255,176,32,.4); border-radius:999px; padding:2px 10px; margin-right:6px}
+
+  .error{display:none; border:1px solid rgba(255,92,92,.4); background:rgba(255,92,92,.08); color:var(--text); border-radius:14px; padding:18px 22px; margin-top:24px}
+  .error code{color:var(--warn)}
+
+  footer{max-width:900px; margin:0 auto; padding:0 24px 48px; color:var(--muted-2); font-size:12px; letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-in">
+    <a class="back" href="index.html">← BTM Business · hub</a>
+    <a class="repo" id="edit-link" href="#" target="_blank" rel="noopener">Editar en GitHub ↗</a>
+  </div>
+</div>
+
+<main>
+  <article class="md" id="content" aria-live="polite"></article>
+  <div class="error" id="error"></div>
+</main>
+
+<footer>BTM Pro · SBS · BCM — como una suite ofimática, para el bádminton · Team Bádminton Chía</footer>
+
+<script>
+  const OWNER_REPO = 'juandelossantos/btm-business';
+  const BRANCH = 'main';
+  const params = new URLSearchParams(location.search);
+  // doc inicial: ?f=ruta/al/archivo.md (relativo a la raíz del sitio)
+  const initialDoc = (params.get('f') || 'docs/PLAN-GESTION-TORNEOS.md').replace(/^\/+/, '');
+
+  const content = document.getElementById('content');
+  const errorBox = document.getElementById('error');
+  let currentBase = ''; // directorio del doc cargado (para resolver enlaces relativos)
+
+  function dirOf(p){ const i = p.lastIndexOf('/'); return i < 0 ? '' : p.slice(0, i + 1); }
+  function resolve(base, href){ // resuelve href relativo a base
+    if (/^[a-z]+:\/\//i.test(href) || href.startsWith('#') || href.startsWith('?')) return null;
+    const stack = base === '' ? [] : base.split('/').filter(Boolean); stack.pop();
+    for (const part of href.split('/')){
+      if (part === '..') stack.pop();
+      else if (part !== '.' && part !== '') stack.push(part);
+    }
+    return stack.join('/');
+  }
+
+  async function fetchFirst(candidates){ // devuelve la primera URL que responda OK
+    for (const url of candidates){
+      if (!url) continue;
+      try{
+        const res = await fetch(url, { cache: 'no-cache' });
+        if (res.ok) return { url, text: await res.text() };
+      }catch(e){ /* siguiente candidato */ }
+    }
+    return null;
+  }
+
+  // href puede ser relativo al propio md o a la raíz del sitio: probamos ambas convenciones
+  async function load(href, baseDir){
+    errorBox.style.display = 'none';
+    content.style.opacity = '.35';
+    try{
+      const clean = href.split('#')[0].split('?')[0].replace(/^\/+/, '');
+      const found = await fetchFirst([ resolve(baseDir, clean), clean ]);
+      if (!found) throw new Error('no encontrado');
+      currentBase = dirOf(found.url);
+
+      const html = marked.parse(found.text, { gfm: true, breaks: false });
+      content.innerHTML = DOMPurify.sanitize(html, { ADD_ATTR: ['target'] });
+      content.style.opacity = '1';
+
+      // enlaces .md internos → navegan dentro del visor
+      content.querySelectorAll('a[href]').forEach(a => {
+        const h = a.getAttribute('href');
+        const target = resolve(currentBase, h);
+        if (target && /\.md$/i.test(target)){
+          a.setAttribute('data-doc', h);
+          a.setAttribute('href', 'doc.html?f=' + encodeURIComponent(target));
+        } else if (h && !/^[a-z]+:\/\//i.test(h) && !h.startsWith('#')){
+          a.setAttribute('target', '_blank'); // assets relativos (imágenes, pdfs)
+        }
+      });
+      document.title = (content.querySelector('h1')?.textContent || 'Documento') + ' — BTM Business';
+      document.getElementById('edit-link').href =
+        'https://github.com/' + OWNER_REPO + '/blob/' + BRANCH + '/' + found.url;
+      history.replaceState(null, '', 'doc.html?f=' + encodeURIComponent(found.url));
+      window.scrollTo(0, 0);
+    }catch(err){
+      content.style.opacity = '1';
+      errorBox.style.display = 'block';
+      errorBox.innerHTML = 'No se pudo cargar <code>' + href + '</code> (' + err.message +
+        '). Si estás abriendo el archivo localmente (file://), sirve el repo con un servidor: <code>python3 -m http.server</code>.';
+      document.title = 'Documento no encontrado — BTM Business';
+    }
+  }
+
+  // navegación interna sin recargar: captura clicks sobre enlaces .md del contenido
+  content.addEventListener('click', e => {
+    const a = e.target.closest('a[data-doc]');
+    if (!a) return;
+    e.preventDefault();
+    load(a.getAttribute('data-doc'), currentBase);
+  });
+
+  load(initialDoc, '');
+</script>
+</body>
+</html>
